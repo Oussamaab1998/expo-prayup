@@ -34,200 +34,51 @@ const PlayerFunct = ({ navigation, route }) => {
   const Tracks = [
     {
       id: 0,
-      title: "Part-1",
+      title: "Part",
       track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-1.mp3?alt=media&token=a1cbdc4c-95fa-4cdf-9b7f-968b776bdbec",
+        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Anniversary%201.mp3?alt=media&token=62d50f58-f431-4e31-9b54-6e8ef57f9e4d",
     },
     {
       id: 1,
-      title: "Part-2",
+      title: "Part",
       track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-2.mp3?alt=media&token=70943399-6a5e-4411-8e7d-3147267bde20",
+        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/BUSINESS%203.mp3?alt=media&token=9f5ceeaa-806d-45c9-9bed-23a5d46b3bb0",
     },
     {
       id: 2,
-      title: "Part-3",
+      title: "Part",
       track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-3.mp3?alt=media&token=274a56f8-a176-4df5-a7d4-4a4c16457def",
+        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Brother.mp3?alt=media&token=1e7035dd-30fc-4e52-b5ce-0106bc491de9",
     },
     {
       id: 3,
-      title: "Part-4",
+      title: "Part",
       track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-4.mp3?alt=media&token=dc3831ae-b23a-4f1d-8bbb-2d250ba25dd0",
+        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Birthday%202.mp3?alt=media&token=133e58de-d628-44f2-95d9-0008aa595f31",
     },
     {
       id: 4,
-      title: "Part-5",
+      title: "Part",
       track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-5.mp3?alt=media&token=f4dda6d9-af2c-4818-9c82-fea11831ae2a",
+        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Business1.mp3?alt=media&token=253ba692-08a3-4295-9820-a81032a79544",
     },
     {
       id: 5,
-      title: "Part-6",
+      title: "Part",
       track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-6.mp3?alt=media&token=61fac86e-322c-4f98-a05f-49d9278663e5",
+        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/CHILDREN%201.mp3?alt=media&token=5f74f3d9-364a-4bc1-9a50-46be9339308a",
     },
     {
       id: 6,
-      title: "Part-7",
+      title: "Part",
       track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-7.mp3?alt=media&token=d39a93c9-ff33-4b3d-a9ea-f97c94f0c4c6",
+        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Children%203.mp3?alt=media&token=c5bf01a8-64de-4bb4-bf72-8109443d5031",
     },
     {
       id: 7,
-      title: "Part-8",
+      title: "Part",
       track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-8.mp3?alt=media&token=ea08c5b2-d984-4fe3-a459-c1b21ee98b5d",
-    },
-
-    {
-      id: 8,
-      title: "Part-9",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-9.mp3?alt=media&token=e94f7cab-6faf-46aa-b5a8-8680f3845ff3",
-    },
-    {
-      id: 9,
-      title: "Part-10",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-10.mp3?alt=media&token=11b8e799-8722-4526-973f-8cc569b033e6",
-    },
-    {
-      id: 10,
-      title: "Part-11",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-11.mp3?alt=media&token=f2e59ea4-b4ae-4f6c-8e50-597f203d4367",
-    },
-    {
-      id: 11,
-      title: "Part-12",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-12.mp3?alt=media&token=82ab9385-051a-4b80-86fc-22455e14f43b",
-    },
-    {
-      id: 12,
-      title: "Part-13",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-13.mp3?alt=media&token=2f544214-c65f-4d1b-83be-0d800d781d82",
-    },
-
-    {
-      id: 13,
-      title: "Part-14",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-14.mp3?alt=media&token=8cc1ff88-2c3f-49e7-90ac-a89cf2e52b5d",
-    },
-
-    {
-      id: 14,
-      title: "Part-15",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-15.mp3?alt=media&token=85bce090-2c6a-419d-a9e8-4bd283efc727",
-    },
-
-    {
-      id: 15,
-      title: "Part-16",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-16.mp3?alt=media&token=f9fe9220-e623-480e-9a79-d20fe734169a",
-    },
-
-    {
-      id: 16,
-      title: "Part-17",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-17.mp3?alt=media&token=f19f7c78-43cd-4b06-95f7-3570f8caf0b7",
-    },
-
-    {
-      id: 17,
-      title: "Part-18",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-18.mp3?alt=media&token=972663cf-81a8-47a4-9311-d40a40473fdd",
-    },
-
-    {
-      id: 18,
-      title: "Part-19",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-19.mp3?alt=media&token=b3205770-f1ab-442a-ad88-7053448545d4",
-    },
-
-    {
-      id: 19,
-      title: "Part-20",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-20.mp3?alt=media&token=cd811dd8-d007-40aa-83a1-4ec110caf2b8",
-    },
-
-    {
-      id: 20,
-      title: "Part-21",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-21.mp3?alt=media&token=ae923e9e-adcb-4e3d-982a-4b03e95ce172",
-    },
-
-    {
-      id: 21,
-      title: "Part-22",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-22.mp3?alt=media&token=c54af80b-04da-48f9-b0c7-3c4f310b1ecb",
-    },
-
-    {
-      id: 22,
-      title: "Part-23",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-23.mp3?alt=media&token=67b42e7c-7b81-4fbe-8dd0-b886ef28f7a7",
-    },
-
-    {
-      id: 23,
-      title: "Part-24",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-24.mp3?alt=media&token=c597274c-063e-4291-8057-ba2f77e90ef5",
-    },
-
-    {
-      id: 24,
-      title: "Part-25",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-25.mp3?alt=media&token=2480af74-d538-4ceb-8a92-baca32222783",
-    },
-
-    {
-      id: 25,
-      title: "Part-26",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-26.mp3?alt=media&token=badc4bf1-b675-4b3a-97f0-bd9adef5dab0",
-    },
-
-    {
-      id: 26,
-      title: "Part-27",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-27.mp3?alt=media&token=09f0e09c-e41d-436a-9e99-5f734d73b6c2",
-    },
-
-    {
-      id: 27,
-      title: "Part-28",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-28.mp3?alt=media&token=c2ff9a17-e027-43a4-8f3d-3b289bbfbdf8",
-    },
-
-    {
-      id: 28,
-      title: "Part-29",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-29.mp3?alt=media&token=cca3f740-d0a8-4077-803f-af7523eaf28c",
-    },
-    {
-      id: 29,
-      title: "Part-30",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/holyquran-f922b.appspot.com/o/Quran Audio%2FPart-30.mp3?alt=media&token=5c8eb622-cb5e-44b1-90d6-28c830f3b77b",
+        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Daughter%201.mp3?alt=media&token=e6ee281a-e167-43cc-bf0f-4440d84762a9",
     },
   ];
   const [CurrentSong, SetCurrentSong] = React.useState(Tracks[id]);
@@ -498,7 +349,7 @@ const PlayerFunct = ({ navigation, route }) => {
 
         <View style={styles.coverContainer}>
           <Image
-            source={require("../assets/pray.png")}
+            source={require("../assets/book.png")}
             resizeMethod="resize"
             resizeMode="contain"
             style={styles.cover}
