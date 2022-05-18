@@ -169,8 +169,7 @@ const Home = ({ route, navigation }) => {
                 onPress={() => {
                   // setTrackPlaying(!trackPlaying);
                   navigation.navigate("Player", {
-                    partTitle: "title",
-                    id: 2,
+                    id: val.superId,
                     trackLength: 200,
                   });
                 }}

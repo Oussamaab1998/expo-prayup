@@ -40,8 +40,10 @@ const Login = ({ navigation }) => {
         console.log(isAdmin);
         navigation.navigate("SliderPage1");
       }
+    } else if (errors.length > 0) {
+      console.log("Errors => ", errors);
     }
-  }, [propertySignInSuccess]);
+  }, [errors, propertySignInSuccess]);
 
   const handleLogin = async (e) => {
     var checking_form = "true";
@@ -162,6 +164,16 @@ const Login = ({ navigation }) => {
               </Text>
             </TouchableOpacity>
           </View>
+          <Text
+            style={{
+              fontSize: 18,
+              color: "#c35c1f",
+              textAlign: "center",
+              marginTop: 10,
+            }}
+          >
+            {errors[0]}
+          </Text>
         </View>
       </ImageBackground>
     </View>

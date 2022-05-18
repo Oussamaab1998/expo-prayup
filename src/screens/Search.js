@@ -37,7 +37,7 @@ const mapState = ({ user }) => ({
   userLoggedId: user.userLoggedId,
 });
 
-const Search = () => {
+const Search = ({ navigation }) => {
   const [search, setSearch] = useState();
   const {
     currentProperty,
@@ -82,9 +82,7 @@ const Search = () => {
 
   useEffect(() => {
     getData();
-
     console.log("prayers : 77", prayers);
-
     getOurFavListIds();
     console.log("Fav ids : 77", prayersIds);
   }, []);
@@ -149,10 +147,16 @@ const Search = () => {
                   style={{ flex: 1, marginBottom: Metrix.VerticalSize(10) }}
                 >
                   <PlaylistComp
-                    onPress={() => console("lets see now")}
+                    onPress={() => {
+                      // setTrackPlaying(!trackPlaying);
+                      navigation.navigate("Player", {
+                        id: val.superId,
+                        trackLength: 200,
+                      });
+                    }}
                     AddToFavouriteIfNotIn={AddToFavouriteIfNotIn}
                     val={val}
-                    songTitle={val.song}
+                    songTitle={val.title}
                     free={val.free}
                     album={val.album}
                     heart={val.favOrNot}

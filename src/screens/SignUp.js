@@ -106,28 +106,7 @@ const SignUp = ({ navigation }) => {
               style={styles.input}
             />
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginVertical: 10,
-            }}
-          >
-            <View style={styles.inputView}>
-              <AntDesign
-                name={"user"}
-                size={Metrix.customFontSize(25)}
-                color={Colors.white}
-              />
-            </View>
-            <TextInput
-              placeholder={"Username"}
-              placeholderTextColor={Colors.lighGray}
-              onChangeText={(text) => setUsername(text)}
-              value={firstName}
-              style={styles.input}
-            />
-          </View>
+
           <View
             style={{
               flexDirection: "row",
@@ -144,6 +123,7 @@ const SignUp = ({ navigation }) => {
               />
             </View>
             <TextInput
+              secureTextEntry={true}
               placeholder={"Password"}
               placeholderTextColor={Colors.lighGray}
               onChangeText={(text) => setPassword(text)}

@@ -55,7 +55,9 @@ const PremiumPlayList = ({
           }}
         >
           <View>
-            <Text style={{ fontWeight: "bold" }}>{songTitle}</Text>
+            <Text style={{ fontWeight: "bold", color: "black" }}>
+              {songTitle}
+            </Text>
             <View style={{ flexDirection: "row" }}>
               {free ? (
                 <Text style={{ color: Colors.green, fontWeight: "bold" }}>

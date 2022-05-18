@@ -34,68 +34,63 @@ const PlayerFunct = ({ navigation, route }) => {
   const Tracks = [
     {
       id: 0,
-      title: "Part",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Anniversary%201.mp3?alt=media&token=62d50f58-f431-4e31-9b54-6e8ef57f9e4d",
-    },
-    {
-      id: 1,
-      title: "Part",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/BUSINESS%203.mp3?alt=media&token=9f5ceeaa-806d-45c9-9bed-23a5d46b3bb0",
-    },
-    {
-      id: 2,
-      title: "Part",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Brother.mp3?alt=media&token=1e7035dd-30fc-4e52-b5ce-0106bc491de9",
-    },
-    {
-      id: 3,
-      title: "Part",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Birthday%202.mp3?alt=media&token=133e58de-d628-44f2-95d9-0008aa595f31",
-    },
-    {
-      id: 4,
-      title: "Part",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Business1.mp3?alt=media&token=253ba692-08a3-4295-9820-a81032a79544",
-    },
-    {
-      id: 5,
-      title: "Part",
+      title: "CHILDREN",
       track:
         "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/CHILDREN%201.mp3?alt=media&token=5f74f3d9-364a-4bc1-9a50-46be9339308a",
     },
     {
-      id: 6,
-      title: "Part",
+      id: 1,
+      title: "Brother",
       track:
-        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Children%203.mp3?alt=media&token=c5bf01a8-64de-4bb4-bf72-8109443d5031",
+        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Brother.mp3?alt=media&token=1e7035dd-30fc-4e52-b5ce-0106bc491de9",
     },
     {
-      id: 7,
-      title: "Part",
+      id: 2,
+      title: "Birthday 02",
+      track:
+        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Birthday%202%20(1).mp3?alt=media&token=11ac659a-5083-4943-9a17-7d87466b46be",
+    },
+    {
+      id: 3,
+      title: "Bussiness",
+      track:
+        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/BUSINESS%203.mp3?alt=media&token=9f5ceeaa-806d-45c9-9bed-23a5d46b3bb0",
+    },
+    {
+      id: 4,
+      title: "Aniversary",
+      track:
+        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Anniversary%201.mp3?alt=media&token=62d50f58-f431-4e31-9b54-6e8ef57f9e4d",
+    },
+    {
+      id: 5,
+      title: "Daughter ",
       track:
         "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Daughter%201.mp3?alt=media&token=e6ee281a-e167-43cc-bf0f-4440d84762a9",
     },
   ];
   const [CurrentSong, SetCurrentSong] = React.useState(Tracks[id]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {});
 
   const NextSong = () => {
+    console.log("current ID => ", CurrentSong.id);
+    // 4 ---> 5
+
+    setCurrentTime(0);
     if (CurrentSong.id === Tracks[Tracks.length - 1].id) {
+      console.log("next no");
       SetCurrentSong(Tracks[0]);
       setPlayOrPause(false);
     } else {
+      console.log("next yess");
       SetCurrentSong(Tracks[CurrentSong.id + 1]);
       setPlayOrPause(false);
     }
   };
 
   const PrevSong = () => {
+    setCurrentTime(0);
     if (CurrentSong.id === 0) {
       SetCurrentSong(Tracks[Tracks.length - 1]);
       setPlayOrPause(false);
@@ -175,6 +170,7 @@ const PlayerFunct = ({ navigation, route }) => {
   };
 
   React.useEffect(() => {
+    console.log("this is the superId ", id);
     if (mounted) {
       console.log("hello there is a call there for this function ");
       LoadAudio();
@@ -201,8 +197,8 @@ const PlayerFunct = ({ navigation, route }) => {
           SetLoading(false);
           console.log("Error in Loading Audio");
         } else {
-          console.log("hahaha", result);
-          setTrackLength((result.durationMillis / 1000).toFixed(0));
+          console.log("  hahaha", result);
+          setTrackLength(result.durationMillis / 1000);
           changeTimeInitial(result.durationMillis);
           console.log("11111 Again", trackLength);
 
@@ -214,9 +210,9 @@ const PlayerFunct = ({ navigation, route }) => {
           SetLoaded(true);
           setFirstTime(true);
         }
-        if (!mounted) {
-          setMounted(true);
-        }
+        // if (!mounted) {
+        //   setMounted(true);
+        // }
       } catch (error) {
         console.log(error);
         SetLoading(false);
@@ -227,6 +223,7 @@ const PlayerFunct = ({ navigation, route }) => {
   };
 
   const LoadAudioFirstTime = async () => {
+    console.log("first line should be showed");
     try {
       const result = await sound.current.loadAsync(
         {
@@ -240,13 +237,18 @@ const PlayerFunct = ({ navigation, route }) => {
         setMounted(true);
         console.log("result.isLoaded === false");
       } else {
-        console.log("hahaha", result);
-        setTrackLength((result.durationMillis / 1000).toFixed(0));
+        console.log(
+          "hahaha",
+          typeof (result.durationMillis / 1000),
+          " the value => ",
+          result.durationMillis / 1000
+        );
+        setTrackLength(result.durationMillis / 1000);
         setMounted(true);
       }
     } catch (error) {
       setMounted(true);
-      console.log("catch (error) ");
+      console.log("catch (error) ", error);
       console.log(error);
     }
   };
@@ -263,7 +265,10 @@ const PlayerFunct = ({ navigation, route }) => {
     }
   };
   if (!mounted) {
-    checkForTheFirstTime();
+    checkForTheFirstTime().then(() => {
+      setMounted(true);
+      console.log("hello there");
+    });
   }
 
   const PlayAudio = async () => {

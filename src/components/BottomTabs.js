@@ -78,7 +78,7 @@ const BottomTabs = () => {
   return (
     <>
       <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
-      {track && (
+      {/* {track && (
         <View
           style={{
             position: "absolute",
@@ -97,7 +97,7 @@ const BottomTabs = () => {
             // playing={true}
           />
         </View>
-      )}
+      )} */}
       <Tab.Navigator
         // tabBarOptions={{ showLabel: true, keyboardHidesTabBar: true }}
         screenOptions={({ route }) => ({
