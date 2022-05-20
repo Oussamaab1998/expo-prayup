@@ -44,6 +44,8 @@ const Login = ({ navigation }) => {
         console.log(isAdmin);
         navigation.navigate("SliderPage1");
       }
+    } else if (errors.length > 0) {
+      console.log("Errors => ", errors);
     }
     return () => {
       setEmailErrors("");
@@ -51,6 +53,7 @@ const Login = ({ navigation }) => {
       dispatch(ResetErrorsState());
     };
   }, [propertySignInSuccess]);
+
 
   const handleLogin = async (e) => {
     var checking_form = "true";

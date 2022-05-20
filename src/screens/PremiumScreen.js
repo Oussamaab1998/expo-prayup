@@ -144,7 +144,7 @@ const PremiumScreen = () => {
                     onPress={() => console.warn("lets see now")}
                     AddToFavouriteIfNotIn={AddToFavouriteIfNotIn}
                     val={val}
-                    songTitle={val.song}
+                    songTitle={val.title}
                     free={val.free}
                     album={val.album}
                     heart={val.favOrNot}
