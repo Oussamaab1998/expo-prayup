@@ -2,19 +2,21 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Alert,
-  ImageBackground,
   StyleSheet,
   Text,
   Image,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from "react-native";
-import { StatusBar } from "expo-status-bar";
 import { Images, Metrix, Colors, NavigationService } from "../config";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import { useDispatch, useSelector } from "react-redux";
-import { signInUser } from "../redux/User/user.actions";
+import { ResetErrorsState, signInUser } from "../redux/User/user.actions";
+import BackgroundComp from "../components/BackgroundComp";
+import TextInputComp from "../components/TextInputComp";
+import ButtonComp from "../components/ButtonComp";
 
 const mapState = ({ user }) => ({
   currentProperty: user.currentProperty,
@@ -27,9 +29,11 @@ const Login = ({ navigation }) => {
     useSelector(mapState);
   const dispatch = useDispatch();
 
-  const [email, setUsername] = useState("prayupuser@gmail.com"); //realadmin1@gmail.com
-  const [password, setPassword] = useState("123123");
-  // const [checking_form, setChecking_form] = useState(true);
+  const [email, setUsername] = useState("ramy@gmail.com"); //realadmin1@gmail.com
+  const [password, setPassword] = useState("hellodude"); // 123123
+  // errors handeling
+  const [emailErrors, setEmailErrors] = useState("");
+  const [passwordErrors, setPasswordErrors] = useState("");
 
   useEffect(() => {
     if (propertySignInSuccess && currentProperty) {
@@ -41,22 +45,26 @@ const Login = ({ navigation }) => {
         navigation.navigate("SliderPage1");
       }
     }
+    return () => {
+      setEmailErrors("");
+      setPasswordErrors("");
+      dispatch(ResetErrorsState());
+    };
   }, [propertySignInSuccess]);
 
   const handleLogin = async (e) => {
     var checking_form = "true";
-    if (password.length < 6) {
-      console.log("* Password Field Required, 6 caracter min", password);
-      Alert.alert("* Password Field Required, 6 caracter min", password);
+    if (email.length === 0 || email.indexOf("@") === -1) {
+      setEmailErrors("* Email Field Required");
       checking_form = "false";
     } else {
-      console.log("Nice as well");
-      console.log(
-        "* Password Field Required, 6 caracter min",
-        email,
-        "why not there",
-        password
-      );
+      setEmailErrors("");
+    }
+    if (password.length < 6) {
+      setPasswordErrors("* Password Field Required, 6 caracter min");
+      checking_form = "false";
+    } else {
+      setPasswordErrors("");
     }
     if (checking_form === "true") {
       dispatch(signInUser({ email, password }));
@@ -64,172 +72,132 @@ const Login = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={Images.background}
-        resizeMode="cover"
-        style={styles.image}
+    <View style={{ flex: 1 }}>
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
       >
-        <StatusBar style="light" hidden={false} />
-        <Text style={styles.title}>WELCOME</Text>
+        <Text style={styles.title1}>WELCOME</Text>
         <Text style={styles.title2}>Login to continue</Text>
+        {(emailErrors.length > 0 ||
+          passwordErrors.length > 0 ||
+          errors.length > 0) && (
+          <View style={styles.errorContainer}>
+            {errors.length > 0 && (
+              <Text style={styles.fieldErrors}>{errors}</Text>
+            )}
+            {emailErrors.length > 0 && (
+              <Text style={styles.fieldErrors}>{emailErrors}</Text>
+            )}
+            {passwordErrors.length > 0 && (
+              <Text style={styles.fieldErrors}>{passwordErrors}</Text>
+            )}
+          </View>
+        )}
         <View style={styles.container2}>
-          <Image
+          {/* <Image
             source={Images.user}
-            style={{ resizeMode: "contain", width: 90, height: 90 }}
-          />
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginVertical: 30,
-            }}
-          >
-            <View style={styles.inputView}>
+            style={{ width: "25%", height: "25%", margin: 0 }}
+            resizeMode="contain"
+          /> */}
+          <TextInputComp
+            placeholder="Username"
+            isPassword={false}
+            stateName={email}
+            stateNameChange={setUsername}
+            icon={
               <AntDesign
                 name={"user"}
                 size={Metrix.customFontSize(25)}
                 color={Colors.white}
               />
-            </View>
-            <TextInput
-              placeholder={"Username"}
-              placeholderTextColor={Colors.lighGray}
-              onChangeText={(text) => setUsername(text)}
-              value={email}
-              style={styles.input}
-            />
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginTop: 10,
-              marginBottom: 5,
-            }}
-          >
-            <View style={styles.inputView}>
+            }
+            inputStyle={
+              emailErrors.length > 0 && { borderColor: "red", borderWidth: 1.5 }
+            }
+          />
+          <TextInputComp
+            placeholder="Password"
+            isPassword={true}
+            stateName={password}
+            stateNameChange={setPassword}
+            icon={
               <Fontisto
                 name={"locked"}
                 size={Metrix.customFontSize(25)}
                 color={Colors.white}
               />
-            </View>
-            <TextInput
-              secureTextEntry={true}
-              placeholder={"Password"}
-              placeholderTextColor={Colors.lighGray}
-              onChangeText={(text) => setPassword(text)}
-              value={password}
-              style={styles.input}
-            />
-          </View>
-          <View style={{ width: "100%" }}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("SignUp");
-              }}
-              style={{
-                alignSelf: "flex-end",
-                marginRight: 10,
-              }}
-            >
-              <Text
-                style={{
-                  color: Colors.white,
-                }}
-              >
-                Don't have an account yet
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ marginTop: 20, marginBottom: 10 }}>
-            <TouchableOpacity
-              style={{
-                // bottom: 110,
-                backgroundColor: Colors.button,
-                ...styles.button,
-              }}
-              onPress={handleLogin}
-            >
-              <Text
-                style={{
-                  color: Colors.white,
-                  fontSize: Metrix.customFontSize(19),
-                }}
-              >
-                Login
-              </Text>
-            </TouchableOpacity>
-          </View>
+            }
+            inputStyle={
+              passwordErrors.length > 0 && {
+                borderColor: "red",
+                borderWidth: 1.5,
+              }
+            }
+          />
+          <ButtonComp
+            bgColor="transparent"
+            textStyle={{ fontSize: 12, textAlign: "center" }}
+            txtColor={"#fff"}
+            content="Don't have an account yet? please Sign up"
+            pressHandler={() => {
+              navigation.navigate("SignUp");
+            }}
+          />
+          <ButtonComp
+            bgColor={Colors.button}
+            txtColor={"#fff"}
+            content="login"
+            pressHandler={handleLogin}
+          />
         </View>
-      </ImageBackground>
+        <BackgroundComp />
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-  },
-  image: {
-    // height: "100%",
-    flex: 1,
-    justifyContent: "center",
+    flexGrow: 1,
     alignItems: "center",
+    paddingVertical: 50,
   },
-  button: {
-    borderRadius: 20,
-    width: Metrix.HorizontalSize(150),
-    alignItems: "center",
-    justifyContent: "center",
-    // paddingHorizontal: 40,
-    paddingVertical: 10,
-    // position: 'absolute',
-  },
-  socialButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    // backgroundColor: '#fff',
-    paddingHorizontal: Metrix.HorizontalSize(30),
-    paddingVertical: Metrix.VerticalSize(3),
-  },
-  title: {
+  title1: {
     color: Colors.button,
-    fontSize: Metrix.customFontSize(50),
+    fontSize: 40,
     fontWeight: "bold",
+    textAlign: "center",
   },
   title2: {
     color: Colors.white,
-    fontSize: Metrix.customFontSize(18),
-    fontWeight: "bold",
+    fontSize: 14,
+    textAlign: "center",
+    marginBottom: 50,
+  },
+  // errors
+  errorContainer: {
+    width: "80%",
+    backgroundColor: "#fff",
+    padding: 15,
+    borderRadius: 8,
+  },
+  fieldErrors: {
+    color: "red",
+    fontSize: 10,
+    marginVertical: 5,
   },
   container2: {
-    borderWidth: 10,
-    borderColor: Colors.button,
-    // height: Metrix.VerticalSize(510),
-    width: Metrix.HorizontalSize(300),
-    borderRadius: 50,
-    marginVertical: 20,
-    padding: 20,
+    width: "80%",
+    paddingVertical: 20,
     alignItems: "center",
-    // justifyContent: 'center',
-    backgroundColor: "#28115B",
+    marginBottom: 20,
   },
-  input: {
-    backgroundColor: Colors.white,
-    width: Metrix.HorizontalSize(170),
-    paddingVertical: 10,
-    paddingLeft: 8,
-    height: Metrix.VerticalSize(44),
-  },
-  inputView: {
-    backgroundColor: Colors.button,
-    width: Metrix.HorizontalSize(45),
-    paddingVertical: 7,
-    alignItems: "center",
+  image: {
+    flex: 1,
     justifyContent: "center",
-    // height: Metrix.VerticalSize(56)
+    alignItems: "center",
   },
 });
 export default Login;

@@ -4,7 +4,6 @@ import {
   Text,
   View,
   Image,
-  SafeAreaView,
   TouchableOpacity,
 } from "react-native";
 import Slider from "react-native-slider";
@@ -482,7 +481,7 @@ const PlayerFunct = ({ navigation, route }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={{ alignItems: "center" }}>
         <View style={{ alignItems: "center", marginTop: 24 }}>
           <Text style={[styles.textLight, { fontSize: 12 }]}>PLAYLIST</Text>
@@ -597,7 +596,7 @@ const PlayerFunct = ({ navigation, route }) => {
           <FontAwesome5 name="forward" size={32} color="#93A8B3"></FontAwesome5>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 export default PlayerFunct;

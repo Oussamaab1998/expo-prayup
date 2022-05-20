@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  StatusBar,
   Platform,
 } from "react-native";
 import { Colors, Images } from "../config";
@@ -14,11 +13,11 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebase/utils";
 import Feather from "@expo/vector-icons/Feather";
 
-const StatusBarHeight = Platform.select({
-  ios: 20,
-  android: StatusBar.currentHeight,
-  default: 0,
-});
+// const StatusBarHeight = Platform.select({
+//   ios: 20,
+//   android: StatusBar.currentHeight,
+//   default: 0,
+// });
 
 const AdminScreen = () => {
   const [requests, setRequests] = useState([]);
@@ -130,7 +129,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.backGray,
-    marginTop: StatusBarHeight,
+    // marginTop: StatusBarHeight,
   },
   topView: {
     // height: 300,

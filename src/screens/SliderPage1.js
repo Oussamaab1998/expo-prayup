@@ -2,7 +2,6 @@ import {
   StyleSheet,
   Text,
   View,
-  StatusBar,
   BackHandler,
   TouchableOpacity,
 } from "react-native";
@@ -11,11 +10,11 @@ import { useFocusEffect } from "@react-navigation/native";
 import { Video, AVPlaybackStatus } from "expo-av";
 import Intro from "../assets/intro.mp4";
 
-const StatusBarHeight = Platform.select({
-  ios: 20,
-  android: StatusBar.currentHeight,
-  default: 0,
-});
+// const StatusBarHeight = Platform.select({
+//   ios: 20,
+//   android: StatusBar.currentHeight,
+//   default: 0,
+// });
 
 const SliderPage1 = ({ navigation }) => {
   useFocusEffect(
@@ -30,7 +29,7 @@ const SliderPage1 = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
+      {/* <StatusBar backgroundColor="#ffffff" barStyle="dark-content" /> */}
       <TouchableOpacity
         style={styles.nextBtn}
         onPress={() => {
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     position: "relative",
     alignItems: "center",
-    marginTop: StatusBarHeight,
+    // marginTop: StatusBarHeight,
   },
   sliderLine: {
     width: "70%",
