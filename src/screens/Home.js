@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  StatusBar,
-  Platform,
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView, Platform } from "react-native";
 import { Colors, Metrix, NavigationService } from "../config";
 import AlbumComp from "../components/AlbumComp";
 import PlaylistComp from "../components/PlaylistComp";
@@ -14,11 +7,11 @@ import { useDispatch } from "react-redux";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebase/utils";
 
-const StatusBarHeight = Platform.select({
-  ios: 20,
-  android: StatusBar.currentHeight,
-  default: 0,
-});
+// const StatusBarHeight = Platform.select({
+//   ios: 20,
+//   android: StatusBar.currentHeight,
+//   default: 0,
+// });
 
 const Home = ({ route, navigation }) => {
   const [selectedTrack, setSelectedTrack] = useState(null);
@@ -145,26 +138,21 @@ const Home = ({ route, navigation }) => {
   }, []);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      // contentContainerStyle={styles.contentContainer}
+    >
       <View style={styles.album}>
         <AlbumComp
-          style={{ width: "100%" }}
+          // style={{ width: "100%" }}
           onPress={() => console.warn("pressed")}
           title={"Prayer Album"}
         />
-        {/* <AlbumComp
-          onPress={() => NavigationService.navigate('CustomPrayers')}
-          title={'Prayer Album'}
-          customAlbum={true}
-        /> */}
       </View>
       {prayers &&
         prayers.map((val, index) => {
           return (
-            <View
-              key={index.toString()}
-              style={{ flex: 1, marginBottom: Metrix.VerticalSize(10) }}
-            >
+            <View key={index.toString()} style={{ flex: 1, marginBottom: 0 }}>
               <PlaylistComp
                 onPress={() => {
                   // setTrackPlaying(!trackPlaying);
@@ -189,15 +177,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-    paddingHorizontal: Metrix.HorizontalSize(20),
-    marginBottom: Metrix.VerticalSize(70),
-    marginTop: StatusBarHeight,
+    paddingHorizontal: 0,
+    // marginBottom: Metrix.VerticalSize(70),
+    // marginTop: StatusBarHeight,
     paddingTop: 10,
   },
+  contentContainer: {
+    paddingHorizontal: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingBottom: 20,
+  },
   album: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: Metrix.VerticalSize(10),
+    paddingBottom: 10,
     width: "100%",
   },
 });

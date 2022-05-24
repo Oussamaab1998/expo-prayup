@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, StatusBar } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
@@ -77,19 +77,23 @@ const BottomTabs = () => {
   ];
   return (
     <>
-      <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
-      {/* {track && (
+      {track && (
         <View
           style={{
             position: "absolute",
-            bottom: 100,
+            bottom: 63,
+            left: 0,
+            right: 0,
             zIndex: 9999,
+            flex: 1,
             alignItems: "center",
             justifyContent: "center",
+            alignSelf: "center",
             width: "100%",
           }}
         >
           <PlaylistComp
+            isCurrent={true}
             onPress={() => NavigationService.navigate("AudioPlayer")}
             songTitle={track[0].title}
             free={track[0].free}
@@ -97,10 +101,11 @@ const BottomTabs = () => {
             // playing={true}
           />
         </View>
-      )} */}
+      )}
       <Tab.Navigator
         // tabBarOptions={{ showLabel: true, keyboardHidesTabBar: true }}
         screenOptions={({ route }) => ({
+          tabBarShowLabel: false,
           headerShown: false,
           activeTintColor: "blue",
           inactiveTintColor: "gray",
@@ -109,19 +114,17 @@ const BottomTabs = () => {
             elevation: 0,
             ...styles.shadow,
           },
+          // showLabel: false,
           keyboardHidesTabBar: true,
           tabBarStyle: {
-            height: Metrix.VerticalSize(100),
-            paddingHorizontal: Metrix.HorizontalSize(5),
-            paddingTop: 10,
-            paddingBottom: 20,
+            height: 65,
+            padding: 20,
             backgroundColor: Colors.primary,
-            position: "absolute",
-            borderTopWidth: 0,
           },
           tabBarLabelStyle: {
-            fontSize: 18,
+            fontSize: 10,
             color: "white",
+            paddingBottom: 10,
           },
         })}
       >
@@ -131,25 +134,15 @@ const BottomTabs = () => {
           headerShown={false}
           initialParams={{ data: prayers }}
           options={{
-            tabBarLabel: "Library",
             tabBarIcon: ({ focused }) => (
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 60,
-                  // height: 60,
-                  borderRadius: 30 / 2,
-                  backgroundColor: focused ? "#fffff" : Colors.primary,
-                  // padding: 10
-                }}
-              >
+              <>
                 <FontAwesome
                   name={"home"}
-                  size={25}
+                  size={22}
                   color={focused ? "#CCCCFF" : Colors.white}
                 />
-              </View>
+                <Text style={styles.subTitle}>Library</Text>
+              </>
             ),
           }}
         />
@@ -158,13 +151,14 @@ const BottomTabs = () => {
           component={Search}
           options={{
             tabBarIcon: ({ focused }) => (
-              <View style={{ alignItems: "center", justifyContent: "center" }}>
+              <>
                 <FontAwesome
                   name={"search"}
-                  size={25}
+                  size={22}
                   color={focused ? "#CCCCFF" : Colors.white}
                 />
-              </View>
+                <Text style={styles.subTitle}>Search</Text>
+              </>
             ),
           }}
         />
@@ -173,13 +167,14 @@ const BottomTabs = () => {
           component={Playlist}
           options={{
             tabBarIcon: ({ focused }) => (
-              <View style={{ alignItems: "center", justifyContent: "center" }}>
+              <>
                 <FontAwesome
                   name={"music"}
-                  size={25}
+                  size={22}
                   color={focused ? "#CCCCFF" : Colors.white}
                 />
-              </View>
+                <Text style={styles.subTitle}>Playlist</Text>
+              </>
             ),
           }}
         />
@@ -188,13 +183,16 @@ const BottomTabs = () => {
           component={!isAdmin ? Profile : AdminScreen}
           options={{
             tabBarIcon: ({ focused }) => (
-              <View style={{ alignItems: "center", justifyContent: "center" }}>
+              <>
                 <FontAwesome
                   name={"user"}
-                  size={25}
+                  size={22}
                   color={focused ? "#CCCCFF" : Colors.white}
                 />
-              </View>
+                <Text style={styles.subTitle}>{`${
+                  isAdmin ? "Admin" : "Profile"
+                }  `}</Text>
+              </>
             ),
           }}
         />
@@ -203,7 +201,15 @@ const BottomTabs = () => {
   );
 };
 
+export default BottomTabs;
+
 const styles = StyleSheet.create({
+  subTitle: {
+    fontSize: 10,
+    color: "white",
+    marginTop: 5,
+    marginBottom: 10,
+  },
   shadow: {
     shadowColor: "gray",
     shadowOffset: {
@@ -215,10 +221,3 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 });
-
-// const mapStateToProps = state => ({
-//   track: TrackReducer.track,
-// });
-// const mapDispatchToProps = dispatch => ({});
-
-export default BottomTabs;

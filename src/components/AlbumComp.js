@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ShtyleSheet,
-  Image,
-  StyleSheet,
-} from "react-native";
+import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { Colors, Images, Metrix } from "../config";
 import Feather from "@expo/vector-icons/Feather";
 const AlbumComp = ({ title, onPress, customAlbum, cTitle }) => {
@@ -54,6 +47,8 @@ const AlbumComp = ({ title, onPress, customAlbum, cTitle }) => {
   );
 };
 
+export default AlbumComp;
+
 const styles = StyleSheet.create({
   container: {
     borderRadius: 30,
@@ -63,5 +58,3 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 });
-
-export default AlbumComp;

@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
-  StatusBar,
   Platform,
 } from "react-native";
 import { Colors, Metrix } from "../config";
@@ -24,11 +23,11 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase/utils";
 
-const StatusBarHeight = Platform.select({
-  ios: 20,
-  android: StatusBar.currentHeight,
-  default: 0,
-});
+// const StatusBarHeight = Platform.select({
+//   ios: 20,
+//   android: StatusBar.currentHeight,
+//   default: 0,
+// });
 const mapState = ({ user }) => ({
   currentProperty: user.currentProperty,
   propertySignInSuccess: user.propertySignInSuccess,
@@ -174,7 +173,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-    marginTop: StatusBarHeight,
+    // marginTop: StatusBarHeight,
   },
   searchBar: {
     backgroundColor: Colors.primary,

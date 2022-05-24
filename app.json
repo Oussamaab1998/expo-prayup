@@ -26,8 +26,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.prayup.prayup",
-      "versionCode": 1
+      "package": "com.prayup.prayup"
     },
     "web": {
       "favicon": "./assets/favicon.png"

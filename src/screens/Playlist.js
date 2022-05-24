@@ -5,7 +5,6 @@ import {
   StyleSheet,
   ScrollView,
   Platform,
-  StatusBar,
 } from "react-native";
 import { Colors, Metrix } from "../config";
 import PlaylistComp from "../components/PlaylistComp";
@@ -13,11 +12,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase/utils";
 
-const StatusBarHeight = Platform.select({
-  ios: 20,
-  android: StatusBar.currentHeight,
-  default: 0,
-});
+// const StatusBarHeight = Platform.select({
+//   ios: 20,
+//   android: StatusBar.currentHeight,
+//   default: 0,
+// });
 
 const mapState = ({ user }) => ({
   currentProperty: user.currentProperty,
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-    marginTop: StatusBarHeight,
+    // marginTop: StatusBarHeight,
   },
   searchBar: {
     backgroundColor: Colors.primary,
