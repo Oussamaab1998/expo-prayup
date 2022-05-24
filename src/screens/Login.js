@@ -38,7 +38,8 @@ const Login = ({ navigation }) => {
         navigation.navigate("BottomTabs");
       } else {
         console.log(isAdmin);
-        navigation.navigate("SliderPage1");
+        // navigation.navigate("SliderPage1");
+        navigation.navigate("BottomTabs");
       }
     } else if (errors.length > 0) {
       console.log("Errors => ", errors);

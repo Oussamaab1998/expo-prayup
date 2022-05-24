@@ -16,6 +16,9 @@ import Entypo from "@expo/vector-icons/Entypo";
 import { useDispatch, useSelector } from "react-redux";
 import { signUpUser } from "../redux/User/user.actions";
 
+import { collection, query, getDocs } from "firebase/firestore";
+import { db } from "../firebase/utils";
+
 const mapState = ({ user }) => ({
   currentProperty: user.currentProperty,
   propertySignUpSuccess: user.propertySignUpSuccess,

@@ -14,19 +14,38 @@ import Payment from "./src/screens/Payment";
 import PremiumScreen from "./src/screens/PremiumScreen";
 import AskPrayer from "./src/screens/AskPrayer";
 import PlayerFunct from "./src/screens/FunctionalPlayer";
+import { useSelector } from "react-redux";
 const Stack = createStackNavigator();
 // const Drawer = createDrawerNavigator();
+const mapState = ({ user }) => ({
+  currentProperty: user.currentProperty,
+});
 
 const AuthStack = () => {
+  const { currentProperty } = useSelector(mapState);
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
       initialRouteName="StartUpScreen"
     >
-      <Stack.Screen name="StartUpScreen" component={StartUpScreen} />
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="SignUp" component={SignUp} />
-      <Stack.Screen name="SliderPage1" component={SliderPage1} />
+      {!currentProperty && (
+        <>
+          <Stack.Screen name="StartUpScreen" component={StartUpScreen} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+        </>
+      )}
+
+      {currentProperty && (
+        <>
+          {/* <Stack.Screen name="AuthStack" component={AuthStack} /> */}
+          <Stack.Screen name="BottomTabs" component={BottomTabs} />
+          <Stack.Screen name="Payment" component={Payment} />
+          <Stack.Screen name="AskPrayer" component={AskPrayer} />
+          <Stack.Screen name="PremiumScreen" component={PremiumScreen} />
+          <Stack.Screen name="Player" component={PlayerFunct} />
+        </>
+      )}
     </Stack.Navigator>
   );
 };
@@ -59,11 +78,11 @@ class AppNavigation extends React.Component {
             initialRouteName={"AuthStack"}
           >
             <Stack.Screen name="AuthStack" component={AuthStack} />
-            <Stack.Screen name="BottomTabs" component={BottomTabs} />
+            {/* <Stack.Screen name="BottomTabs" component={BottomTabs} />
             <Stack.Screen name="Payment" component={Payment} />
             <Stack.Screen name="AskPrayer" component={AskPrayer} />
             <Stack.Screen name="PremiumScreen" component={PremiumScreen} />
-            <Stack.Screen name="Player" component={PlayerFunct} />
+            <Stack.Screen name="Player" component={PlayerFunct} /> */}
             {/* <Stack.Screen name="AudioPlayer" component={AudioPlayer} /> */}
           </Stack.Navigator>
         </NavigationContainer>

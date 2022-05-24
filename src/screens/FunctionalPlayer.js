@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-import Slider from "react-native-slider";
+import Slider from "@react-native-community/slider";
 
 import Moment from "moment";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -18,14 +18,16 @@ const PlayerFunct = ({ navigation, route }) => {
   const { partTitle, id } = route.params;
   const [Loaded, SetLoaded] = React.useState(false);
   const [Loading, SetLoading] = React.useState(false);
-  const [trackLength, setTrackLength] = useState(3500);
-  const [timeElapsed, setTimeElapsed] = useState("0:00");
-  const [timeRemaining, setTimeRemaining] = useState("5:00");
+  const [trackLength, setTrackLength] = useState(200);
+  const [timeElapsed, setTimeElapsed] = useState("--:--");
+  const trackLenghRef = useRef(12);
+  const [timeRemaining, setTimeRemaining] = useState("--:--");
   const [playOrPause, setPlayOrPause] = useState(false);
   const [played, setPlayed] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [firstTime, setFirstTime] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [canItPlay, setCanItPlay] = useState(false);
   /* Test An Other Slider 1 Start */
   const textRef = useRef();
 
@@ -100,21 +102,6 @@ const PlayerFunct = ({ navigation, route }) => {
     }
   };
 
-  const changeTime = (seconds) => {
-    console.log("---------- seconds : ", seconds);
-    console.log("---------- trackLength : ", trackLength);
-
-    var minutes = Math.floor(seconds / 60);
-    var secondss = ((seconds % 60) / 1000).toFixed(0);
-    var res = minutes.toString() + ":" + secondss.toString();
-    setTimeElapsed(res);
-    setTimeRemaining(res);
-
-    // setTimeElapsed(Moment.utc(seconds * 1000).format("m:ss"));
-    // setTimeRemaining(
-    //   Moment.utc((trackLength - seconds) * 1000).format("	HH:mm:ss")
-    // );
-  };
   const convertMillisToSec = (mil) => {
     var sec = Math.floor(mil / 1000);
     return sec;
@@ -170,7 +157,7 @@ const PlayerFunct = ({ navigation, route }) => {
   };
 
   React.useEffect(() => {
-    console.log("this is the superId ", id);
+    console.log("this is the superId ", trackLenghRef.current);
     if (mounted) {
       console.log("hello there is a call there for this function ");
       LoadAudio();
@@ -181,7 +168,7 @@ const PlayerFunct = ({ navigation, route }) => {
 
   const LoadAudio = async () => {
     SetLoaded(false);
-    SetLoading(true);
+    // SetLoading(true);
     const checkLoading = await sound.current.getStatusAsync();
     if (checkLoading.isLoaded === false) {
       try {
@@ -244,6 +231,7 @@ const PlayerFunct = ({ navigation, route }) => {
           result.durationMillis / 1000
         );
         setTrackLength(result.durationMillis / 1000);
+        trackLenghRef.current = result.durationMillis / 1000;
         setMounted(true);
       }
     } catch (error) {
@@ -303,7 +291,26 @@ const PlayerFunct = ({ navigation, route }) => {
       console.log(error);
     }
   };
+  const changeTime = (seconds) => {
+    console.log("---------- seconds : ", seconds);
+    console.log("---------- trackLength : ", trackLength - seconds);
+    var minutesOfTrackLength = Math.floor((trackLength - seconds) / 60);
+    var secondesOfTrackLength = ((trackLength - seconds) % 60).toFixed(0);
+    var resTrackLength =
+      minutesOfTrackLength.toString() + ":" + secondesOfTrackLength.toString();
+    var minutes = Math.floor(seconds / 60);
+    var secondss = (seconds % 60).toFixed(0);
+    var res = minutes.toString() + ":" + secondss.toString();
+    console.log("---------- setTimeElapsed : ", secondss);
+    setCurrentTime(seconds);
+    setTimeElapsed(res);
+    setTimeRemaining(res);
 
+    // setTimeElapsed(Moment.utc(seconds * 1000).format("m:ss"));
+    // setTimeRemaining(
+    //   Moment.utc((trackLength - seconds) * 1000).format("	HH:mm:ss")
+    // );
+  };
   const PlayFromThisPosition = async (sec) => {
     if (played) {
       console.log("lets check here ", timeRemaining);
@@ -317,13 +324,13 @@ const PlayerFunct = ({ navigation, route }) => {
             console.log("PlayFromThisPosition try here line 231");
             sound.current.pauseAsync();
             sound.current.setPositionAsync(positionInMillis);
-            setCurrentTime(sec);
+            // setCurrentTime(seconds);
             sound.current.playAsync();
             setPlayOrPause(true);
           } else {
             console.log("PlayFromThisPosition try here line 238");
             sound.current.setPositionAsync(positionInMillis);
-            setCurrentTime(sec);
+            // setCurrentTime(sec);
             sound.current.playAsync();
             setPlayOrPause(true);
           }
@@ -368,14 +375,13 @@ const PlayerFunct = ({ navigation, route }) => {
           <Text style={[styles.text, { fontSize: 16, marginTop: 8 }]}>
             Pray Up
           </Text>
+          <Text>{!Loading ? "Loaded" : "is loading"}</Text>
         </View>
       </View>
       <View style={{ margin: 32 }}>
         <Slider
           onValueChange={(seconds) => {
-            console.log("hello there ", seconds);
-            changeTime(seconds);
-            PlayFromThisPosition(seconds);
+            console.log("hellddo there ", seconds);
           }}
           value={currentTime}
           minimumValue={0}
@@ -383,7 +389,7 @@ const PlayerFunct = ({ navigation, route }) => {
           trackStyle={styles.track}
           thumbStyle={styles.thumb}
           minimumTrackTintColor="#93A8B3"
-          onSlidingComplete={(value) => setCurrentTime(value.toFixed(0))}
+          onSlidingComplete={(value) => PlayFromThisPosition(value)}
         ></Slider>
         <View
           style={{
@@ -409,13 +415,13 @@ const PlayerFunct = ({ navigation, route }) => {
           marginTop: 16,
         }}
       >
-        <TouchableOpacity onPress={PrevSong}>
+        {/* <TouchableOpacity onPress={PrevSong}>
           <FontAwesome5
             name="backward"
             size={32}
             color="#93A8B3"
           ></FontAwesome5>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         {!playOrPause ? (
           <TouchableOpacity
@@ -449,9 +455,9 @@ const PlayerFunct = ({ navigation, route }) => {
           </TouchableOpacity>
         )}
 
-        <TouchableOpacity onPress={NextSong}>
+        {/* <TouchableOpacity onPress={NextSong}>
           <FontAwesome5 name="forward" size={32} color="#93A8B3"></FontAwesome5>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </SafeAreaView>
   );

@@ -7,7 +7,7 @@ import {
   signOut,
 } from "firebase/auth";
 
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 
 // AUTHENTICATION
 export const recoveryUser =
@@ -82,6 +82,7 @@ export const signUpUser =
   ({ firstName, email, password }) =>
   async (dispatch) => {
     let rule = 0;
+    let isLoggedBefore = false;
     let createdAt = new Date();
     let updatedAt = new Date();
     let deletedAt = new Date();
@@ -99,8 +100,9 @@ export const signUpUser =
       console.log("Line 118 ACTION");
       await createUserWithEmailAndPassword(auth, email, password)
         .then(async () => {
-          console.log("Line 122 ACTION");
-          const docRef = await addDoc(collection(db, "users"), {
+          const myId = auth.currentUser.uid;
+          console.log("Line 122 ACTION", myId);
+          const docRef = await setDoc(doc(db, "users", myId), {
             rule: rule,
             fullname: firstName,
             email: email,
@@ -108,8 +110,9 @@ export const signUpUser =
             createdAt: createdAt,
             updatedAt: updatedAt,
             deletedAt: deletedAt,
+            isLoggedBefore: isLoggedBefore,
           });
-          console.log("Document written with ID: ", docRef.id);
+
           dispatch({
             type: userTypes.USER_SIGN_UP_SUCCESS,
             payload: true,
