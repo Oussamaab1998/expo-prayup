@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Platform,
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView, Platform } from "react-native";
 import { Colors, Metrix } from "../config";
 import PlaylistComp from "../components/PlaylistComp";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,7 +28,50 @@ const Search = ({ navigation }) => {
     isAdmin,
     userLoggedId,
   } = useSelector(mapState);
-
+  const files = [
+    {
+      id: 0,
+      title: "Anniversary",
+      free: true,
+      album: "Vocalist and band",
+    },
+    {
+      id: 1,
+      title: "Brother",
+      free: false,
+      album: "Vocalist and band",
+    },
+    {
+      id: 2,
+      title: "Bussiness",
+      free: true,
+      album: "Vocalist and band",
+    },
+    {
+      id: 3,
+      title: "Children 1",
+      free: true,
+      album: "Vocalist and band",
+    },
+    {
+      id: 4,
+      title: "Daughter",
+      free: false,
+      album: "Vocalist and band",
+    },
+    {
+      id: 5,
+      title: "FAILURE 3",
+      free: true,
+      album: "Vocalist and band",
+    },
+    {
+      id: 6,
+      title: "FEAR 4 ",
+      free: false,
+      album: "Vocalist and band",
+    },
+  ];
   const dispatch = useDispatch();
   const [prayers, setPrayers] = useState([]);
   const getData = async () => {
@@ -50,7 +87,7 @@ const Search = ({ navigation }) => {
     }
   };
   useEffect(() => {
-    getData().then(console.log("this is our data", prayers));
+    // getData().then(console.log("this is our data", prayers));
   }, []);
 
   return (
@@ -60,8 +97,8 @@ const Search = ({ navigation }) => {
           <Text style={{ fontWeight: "bold" }}>Playlist</Text>
         </View>
         <View style={{ paddingHorizontal: 20 }}>
-          {prayers &&
-            prayers.map((val, index) => {
+          {files &&
+            files.map((val, index) => {
               return (
                 <View
                   key={index}
@@ -76,8 +113,8 @@ const Search = ({ navigation }) => {
                       // });
                       // onTrackItemPress(val);
                       navigation.navigate("Player", {
-                        partTitle: "title",
-                        id: 2,
+                        partTitle: val.title,
+                        id: val.id,
                         trackLength: 200,
                       });
                     }}

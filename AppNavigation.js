@@ -28,7 +28,7 @@ const AuthStack = () => {
       screenOptions={{ headerShown: false }}
       initialRouteName="StartUpScreen"
     >
-      {!currentProperty && (
+      {currentProperty && (
         <>
           <Stack.Screen name="StartUpScreen" component={StartUpScreen} />
           <Stack.Screen name="Login" component={Login} />
@@ -36,7 +36,7 @@ const AuthStack = () => {
         </>
       )}
 
-      {currentProperty && (
+      {!currentProperty && (
         <>
           {/* <Stack.Screen name="AuthStack" component={AuthStack} /> */}
           <Stack.Screen name="BottomTabs" component={BottomTabs} />
@@ -49,16 +49,6 @@ const AuthStack = () => {
     </Stack.Navigator>
   );
 };
-
-// const BottomStack = () => {
-//   return (
-//     <Drawer.Navigator
-//       initialRouteName="PPCDashboard"
-//       drawerContent={props => <BottomComp {...props} />}>
-//       <Drawer.Screen name="Home" component={Home} />
-//     </Drawer.Navigator>
-//   );
-// };
 
 class AppNavigation extends React.Component {
   constructor(props) {
@@ -78,12 +68,6 @@ class AppNavigation extends React.Component {
             initialRouteName={"AuthStack"}
           >
             <Stack.Screen name="AuthStack" component={AuthStack} />
-            {/* <Stack.Screen name="BottomTabs" component={BottomTabs} />
-            <Stack.Screen name="Payment" component={Payment} />
-            <Stack.Screen name="AskPrayer" component={AskPrayer} />
-            <Stack.Screen name="PremiumScreen" component={PremiumScreen} />
-            <Stack.Screen name="Player" component={PlayerFunct} /> */}
-            {/* <Stack.Screen name="AudioPlayer" component={AudioPlayer} /> */}
           </Stack.Navigator>
         </NavigationContainer>
         {/* {loader ? <Loader /> : null} */}
@@ -91,11 +75,5 @@ class AppNavigation extends React.Component {
     );
   }
 }
-
-// const mapStateToProps = (state) => {
-//   return {
-//     user: state.AuthReducer.user,
-//   };
-// };
 
 export default AppNavigation;

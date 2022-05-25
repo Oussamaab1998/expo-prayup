@@ -16,6 +16,50 @@ import { db } from "../firebase/utils";
 const Home = ({ route, navigation }) => {
   const [selectedTrack, setSelectedTrack] = useState(null);
   const myDATA = route.params.data;
+  const files = [
+    {
+      id: 0,
+      title: "Anniversary",
+      free: true,
+      album: "Vocalist and band",
+    },
+    {
+      id: 1,
+      title: "Brother",
+      free: false,
+      album: "Vocalist and band",
+    },
+    {
+      id: 2,
+      title: "Bussiness",
+      free: true,
+      album: "Vocalist and band",
+    },
+    {
+      id: 3,
+      title: "Children 1",
+      free: true,
+      album: "Vocalist and band",
+    },
+    {
+      id: 4,
+      title: "Daughter",
+      free: false,
+      album: "Vocalist and band",
+    },
+    {
+      id: 5,
+      title: "FAILURE 3",
+      free: true,
+      album: "Vocalist and band",
+    },
+    {
+      id: 6,
+      title: "FEAR 4 ",
+      free: false,
+      album: "Vocalist and band",
+    },
+  ];
   const data = [
     {
       id: "0",
@@ -133,9 +177,9 @@ const Home = ({ route, navigation }) => {
       console.log("my error", err);
     }
   };
-  useEffect(() => {
-    getData().then(console.log("this is our data", prayers));
-  }, []);
+  // useEffect(() => {
+  //   getData().then(console.log("this is our data", prayers));
+  // }, []);
 
   return (
     <ScrollView
@@ -149,26 +193,28 @@ const Home = ({ route, navigation }) => {
           title={"Prayer Album"}
         />
       </View>
-      {prayers &&
-        prayers.map((val, index) => {
-          return (
-            <View key={index.toString()} style={{ flex: 1, marginBottom: 0 }}>
-              <PlaylistComp
-                onPress={() => {
-                  // setTrackPlaying(!trackPlaying);
-                  navigation.navigate("Player", {
-                    id: val.superId,
-                    trackLength: 200,
-                  });
-                }}
-                songTitle={val.title}
-                free={val.free}
-                album={val.album}
-                // playing={selectedTrack ? trackPlaying : false}
-              />
-            </View>
-          );
-        })}
+      <View style={{ marginBottom: 30 }}>
+        {files &&
+          files.map((val, index) => {
+            return (
+              <View key={index} style={{ flex: 1, marginBottom: 0 }}>
+                <PlaylistComp
+                  onPress={() => {
+                    // setTrackPlaying(!trackPlaying);
+                    navigation.navigate("Player", {
+                      id: val.id,
+                      trackLength: 200,
+                    });
+                  }}
+                  songTitle={val.title}
+                  free={val.free}
+                  album={val.album}
+                  // playing={selectedTrack ? trackPlaying : false}
+                />
+              </View>
+            );
+          })}
+      </View>
     </ScrollView>
   );
 };
@@ -181,6 +227,7 @@ const styles = StyleSheet.create({
     // marginBottom: Metrix.VerticalSize(70),
     // marginTop: StatusBarHeight,
     paddingTop: 10,
+    paddingBottom: 20,
   },
   contentContainer: {
     paddingHorizontal: 10,

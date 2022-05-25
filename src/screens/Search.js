@@ -45,7 +45,50 @@ const Search = ({ navigation }) => {
     isAdmin,
     userLoggedId,
   } = useSelector(mapState);
-
+  const files = [
+    {
+      id: 0,
+      title: "Anniversary",
+      free: true,
+      album: "Vocalist and band",
+    },
+    {
+      id: 1,
+      title: "Brother",
+      free: false,
+      album: "Vocalist and band",
+    },
+    {
+      id: 2,
+      title: "Bussiness",
+      free: true,
+      album: "Vocalist and band",
+    },
+    {
+      id: 3,
+      title: "Children 1",
+      free: true,
+      album: "Vocalist and band",
+    },
+    {
+      id: 4,
+      title: "Daughter",
+      free: false,
+      album: "Vocalist and band",
+    },
+    {
+      id: 5,
+      title: "FAILURE 3",
+      free: true,
+      album: "Vocalist and band",
+    },
+    {
+      id: 6,
+      title: "FEAR 4 ",
+      free: false,
+      album: "Vocalist and band",
+    },
+  ];
   const [prayers, setPrayers] = useState([]);
   const [prayersIds, setPrayersIds] = useState([]);
   const getOurFavListIds = async () => {
@@ -58,6 +101,7 @@ const Search = ({ navigation }) => {
     });
     console.log("our ids of favorites prayers", prayersIds);
   };
+
   const getData = async () => {
     console.log("our ids of favorites prayers", prayersIds);
     const q = query(collection(db, "prayers"));
@@ -80,7 +124,7 @@ const Search = ({ navigation }) => {
   };
 
   useEffect(() => {
-    getData();
+    // getData();
     console.log("prayers : 77", prayers);
     getOurFavListIds();
     console.log("Fav ids : 77", prayersIds);
@@ -138,8 +182,8 @@ const Search = ({ navigation }) => {
           <Text style={{ fontWeight: "bold" }}>Most Played</Text>
         </View>
         <View style={{ paddingHorizontal: 20 }}>
-          {prayers &&
-            prayers.map((val, index) => {
+          {files &&
+            files.map((val, index) => {
               return (
                 <View
                   key={index}
@@ -149,7 +193,7 @@ const Search = ({ navigation }) => {
                     onPress={() => {
                       // setTrackPlaying(!trackPlaying);
                       navigation.navigate("Player", {
-                        id: val.superId,
+                        id: val.id,
                         trackLength: 200,
                       });
                     }}

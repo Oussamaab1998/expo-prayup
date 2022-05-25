@@ -77,31 +77,6 @@ const BottomTabs = () => {
   ];
   return (
     <>
-      {track && (
-        <View
-          style={{
-            position: "absolute",
-            bottom: 63,
-            left: 0,
-            right: 0,
-            zIndex: 9999,
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
-            alignSelf: "center",
-            width: "100%",
-          }}
-        >
-          <PlaylistComp
-            isCurrent={true}
-            onPress={() => NavigationService.navigate("AudioPlayer")}
-            songTitle={track[0].title}
-            free={track[0].free}
-            album={track[0].album}
-            // playing={true}
-          />
-        </View>
-      )}
       <Tab.Navigator
         // tabBarOptions={{ showLabel: true, keyboardHidesTabBar: true }}
         screenOptions={({ route }) => ({

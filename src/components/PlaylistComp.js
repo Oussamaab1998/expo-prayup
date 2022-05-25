@@ -164,7 +164,7 @@ const PlaylistComp = ({
           >
             {showOrNot ? (
               <TouchableOpacity onPress={() => AddToFavouriteIfNotIn(val)}>
-                {val.favOrNot ? (
+                {/* {val.favOrNot ? (
                   <MaterialIcons
                     name={"favorite"}
                     color={Colors.primary}
@@ -176,7 +176,7 @@ const PlaylistComp = ({
                     color={Colors.primary}
                     size={Metrix.customFontSize(36)}
                   />
-                )}
+                )} */}
               </TouchableOpacity>
             ) : null}
           </View>

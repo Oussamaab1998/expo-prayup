@@ -1,17 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import Slider from "@react-native-community/slider";
-
 import Moment from "moment";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Audio } from "expo-av";
-
+import Anniv from "../files/Anniversary1.mp3";
+import Brother from "../files/Brother.mp3";
+import Business from "../files/BUSINESS3.mp3";
+import Children1 from "../files/CHILDREN1.mp3";
+import Daughter from "../files/Daughter.mp3";
+import Failure from "../files/FAILURE3.mp3";
+import Fear from "../files/FEAR4.mp3";
 const PlayerFunct = ({ navigation, route }) => {
   const sound = React.useRef(new Audio.Sound());
   const { partTitle, id } = route.params;
@@ -35,49 +34,60 @@ const PlayerFunct = ({ navigation, route }) => {
   const Tracks = [
     {
       id: 0,
-      title: "CHILDREN",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/CHILDREN%201.mp3?alt=media&token=5f74f3d9-364a-4bc1-9a50-46be9339308a",
+      title: "Anniversary",
+      track: Anniv,
     },
     {
       id: 1,
       title: "Brother",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Brother.mp3?alt=media&token=1e7035dd-30fc-4e52-b5ce-0106bc491de9",
+      track: Brother,
     },
     {
       id: 2,
-      title: "Birthday 02",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Birthday%202%20(1).mp3?alt=media&token=11ac659a-5083-4943-9a17-7d87466b46be",
+      title: "Bussiness",
+      track: Business,
     },
     {
       id: 3,
-      title: "Bussiness",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/BUSINESS%203.mp3?alt=media&token=9f5ceeaa-806d-45c9-9bed-23a5d46b3bb0",
+      title: "Children 1",
+      track: Children1,
     },
     {
       id: 4,
-      title: "Aniversary",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Anniversary%201.mp3?alt=media&token=62d50f58-f431-4e31-9b54-6e8ef57f9e4d",
+      title: "Daughter",
+      track: Daughter,
     },
     {
       id: 5,
-      title: "Daughter ",
-      track:
-        "https://firebasestorage.googleapis.com/v0/b/prayup-9efba.appspot.com/o/Daughter%201.mp3?alt=media&token=e6ee281a-e167-43cc-bf0f-4440d84762a9",
+      title: "FAILURE 3",
+      track: Failure,
+    },
+    {
+      id: 5,
+      title: "FEAR 4 ",
+      track: Fear,
     },
   ];
   const [CurrentSong, SetCurrentSong] = React.useState(Tracks[id]);
 
   useEffect(() => {});
 
-  const NextSong = () => {
-    console.log("current ID => ", CurrentSong.id);
-    // 4 ---> 5
+  // const PauseAudio = async () => {
+  //   console.log("PauseAudio");
+  //   try {
+  //     const result = await sound.current.getStatusAsync();
+  //     if (result.isLoaded) {
+  //       if (result.isPlaying === true) {
+  //         sound.current.pauseAsync();
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
+  const NextSong = async () => {
+    stopThere();
     setCurrentTime(0);
     if (CurrentSong.id === Tracks[Tracks.length - 1].id) {
       console.log("next no");
@@ -90,7 +100,26 @@ const PlayerFunct = ({ navigation, route }) => {
     }
   };
 
-  const PrevSong = () => {
+  const stopThere = async (playbackObj) => {
+    try {
+      await sound.current.stopAsync();
+      await sound.current.unloadAsync();
+    } catch (error) {
+      console.log("error inside playNext helper method", error.message);
+    }
+  };
+
+  // try {
+  //   const result = await sound.current.getStatusAsync();
+  //   if (result.isLoaded) {
+  //     if (result.isPlaying === true) {
+  //       sound.current.pauseAsync();
+  //     }
+  //   }
+  // }
+
+  const PrevSong = async () => {
+    stopThere();
     setCurrentTime(0);
     if (CurrentSong.id === 0) {
       SetCurrentSong(Tracks[Tracks.length - 1]);
@@ -131,6 +160,7 @@ const PlayerFunct = ({ navigation, route }) => {
       if (result.isLoaded) {
         if (result.isPlaying === true) {
           console.log(" lets Gooo");
+          console.log("isssue => ", result.positionMillis);
           setCurrentTime(convertMillisToSec(result.positionMillis));
           // currentTimee.setValue(convertMillisToSec(result.positionMillis));
           // Update Time Elapsed and Time Remaining
@@ -172,9 +202,8 @@ const PlayerFunct = ({ navigation, route }) => {
     if (checkLoading.isLoaded === false) {
       try {
         const result = await sound.current.loadAsync(
-          {
-            uri: CurrentSong.track,
-          },
+          CurrentSong.track,
+
           {},
           true
         );
@@ -212,10 +241,9 @@ const PlayerFunct = ({ navigation, route }) => {
     console.log("first line should be showed");
     try {
       const result = await sound.current.loadAsync(
-        {
-          uri: CurrentSong.track,
-        },
-        {},
+        CurrentSong.track,
+
+        { shouldPlay: true },
         true
       );
 
@@ -311,36 +339,36 @@ const PlayerFunct = ({ navigation, route }) => {
     // );
   };
   const PlayFromThisPosition = async (sec) => {
-    if (played) {
-      console.log("lets check here ", timeRemaining);
-      console.log("22222 Again", trackLength);
-      var positionInMillis = sec * 1000;
-      console.log("PlayFromThisPosition");
-      try {
-        const result = await sound.current.getStatusAsync();
-        if (result.isLoaded) {
-          if (result.isPlaying === true) {
-            console.log("PlayFromThisPosition try here line 231");
-            sound.current.pauseAsync();
-            sound.current.setPositionAsync(positionInMillis);
-            // setCurrentTime(seconds);
-            sound.current.playAsync();
-            setPlayOrPause(true);
-          } else {
-            console.log("PlayFromThisPosition try here line 238");
-            sound.current.setPositionAsync(positionInMillis);
-            // setCurrentTime(sec);
-            sound.current.playAsync();
-            setPlayOrPause(true);
-          }
+    // if (played) {
+    console.log("lets check here ", timeRemaining);
+    console.log("22222 Again", trackLength);
+    var positionInMillis = sec * 1000;
+    console.log("PlayFromThisPosition");
+    try {
+      const result = await sound.current.getStatusAsync();
+      if (result.isLoaded) {
+        if (result.isPlaying === true) {
+          console.log("PlayFromThisPosition try here line 231");
+          sound.current.pauseAsync();
+          sound.current.setPositionAsync(positionInMillis);
+          // setCurrentTime(seconds);
+          sound.current.playAsync();
+          setPlayOrPause(true);
+        } else {
+          console.log("PlayFromThisPosition try here line 238");
+          sound.current.setPositionAsync(positionInMillis);
+          // setCurrentTime(sec);
+          sound.current.playAsync();
+          setPlayOrPause(true);
         }
-      } catch (error) {
-        console.log(error);
       }
-    } else {
-      console.log("its the first time ");
-      setPlayed(true);
+    } catch (error) {
+      console.log(error);
     }
+    // } else {
+    //   console.log("its the first time ");
+    //   setPlayed(true);
+    // }
   };
 
   return (
@@ -381,6 +409,7 @@ const PlayerFunct = ({ navigation, route }) => {
         <Slider
           onValueChange={(seconds) => {
             console.log("hellddo there ", seconds);
+            // changeTime();
           }}
           value={currentTime}
           minimumValue={0}
@@ -389,7 +418,7 @@ const PlayerFunct = ({ navigation, route }) => {
           thumbStyle={styles.thumb}
           minimumTrackTintColor="#93A8B3"
           onSlidingComplete={(value) => PlayFromThisPosition(value)}
-        ></Slider>
+        />
         <View
           style={{
             marginTop: 0,
@@ -414,13 +443,13 @@ const PlayerFunct = ({ navigation, route }) => {
           marginTop: 16,
         }}
       >
-        {/* <TouchableOpacity onPress={PrevSong}>
+        <TouchableOpacity onPress={PrevSong}>
           <FontAwesome5
             name="backward"
             size={32}
             color="#93A8B3"
           ></FontAwesome5>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
 
         {!playOrPause ? (
           <TouchableOpacity
@@ -454,9 +483,9 @@ const PlayerFunct = ({ navigation, route }) => {
           </TouchableOpacity>
         )}
 
-        {/* <TouchableOpacity onPress={NextSong}>
+        <TouchableOpacity onPress={NextSong}>
           <FontAwesome5 name="forward" size={32} color="#93A8B3"></FontAwesome5>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </View>
     </View>
   );
