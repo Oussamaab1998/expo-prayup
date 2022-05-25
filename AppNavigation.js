@@ -28,7 +28,7 @@ const AuthStack = () => {
       screenOptions={{ headerShown: false }}
       initialRouteName="StartUpScreen"
     >
-      {currentProperty && (
+      {!currentProperty && (
         <>
           <Stack.Screen name="StartUpScreen" component={StartUpScreen} />
           <Stack.Screen name="Login" component={Login} />
@@ -36,7 +36,7 @@ const AuthStack = () => {
         </>
       )}
 
-      {!currentProperty && (
+      {currentProperty && (
         <>
           {/* <Stack.Screen name="AuthStack" component={AuthStack} /> */}
           <Stack.Screen name="BottomTabs" component={BottomTabs} />

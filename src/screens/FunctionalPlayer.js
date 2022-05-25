@@ -399,13 +399,13 @@ const PlayerFunct = ({ navigation, route }) => {
           <Text style={[styles.textDark, { fontSize: 20, fontWeight: "500" }]}>
             {CurrentSong.title}
           </Text>
-          <Text style={[styles.text, { fontSize: 16, marginTop: 8 }]}>
+          {/* <Text style={[styles.text, { fontSize: 16, marginTop: 8 }]}>
             Pray Up
           </Text>
-          <Text>{!Loading ? "Loaded" : "is loading"}</Text>
+          <Text>{!Loading ? "Loaded" : "is loading"}</Text> */}
         </View>
       </View>
-      <View style={{ margin: 32 }}>
+      <View>
         <Slider
           onValueChange={(seconds) => {
             console.log("hellddo there ", seconds);
@@ -433,59 +433,63 @@ const PlayerFunct = ({ navigation, route }) => {
             {timeRemaining}
           </Text>
         </View>
-      </View>
 
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: 16,
-        }}
-      >
-        <TouchableOpacity onPress={PrevSong}>
-          <FontAwesome5
-            name="backward"
-            size={32}
-            color="#93A8B3"
-          ></FontAwesome5>
-        </TouchableOpacity>
-
-        {!playOrPause ? (
-          <TouchableOpacity
-            style={styles.playButtonContainer}
-            onPress={() => {
-              setPlayOrPause(true);
-              PlayAudio();
-            }}
-          >
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 16,
+          }}
+        >
+          <TouchableOpacity onPress={PrevSong}>
             <FontAwesome5
-              name="play"
+              name="backward"
               size={32}
-              color="#3D425C"
-              style={[styles.playButton, { marginLeft: 8 }]}
+              color="#93A8B3"
             ></FontAwesome5>
           </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            style={styles.playButtonContainer}
-            onPress={() => {
-              setPlayOrPause(false);
-              PauseAudio();
-            }}
-          >
+
+          {!playOrPause ? (
+            <TouchableOpacity
+              style={styles.playButtonContainer}
+              onPress={() => {
+                setPlayOrPause(true);
+                PlayAudio();
+              }}
+            >
+              <FontAwesome5
+                name="play"
+                size={32}
+                color="#3D425C"
+                style={[styles.playButton, { marginLeft: 8 }]}
+              ></FontAwesome5>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={styles.playButtonContainer}
+              onPress={() => {
+                setPlayOrPause(false);
+                PauseAudio();
+              }}
+            >
+              <FontAwesome5
+                name="pause"
+                size={32}
+                color="#3D425C"
+                style={[styles.playButton, { marginLeft: 8 }]}
+              ></FontAwesome5>
+            </TouchableOpacity>
+          )}
+
+          <TouchableOpacity onPress={NextSong}>
             <FontAwesome5
-              name="pause"
+              name="forward"
               size={32}
-              color="#3D425C"
-              style={[styles.playButton, { marginLeft: 8 }]}
+              color="#93A8B3"
             ></FontAwesome5>
           </TouchableOpacity>
-        )}
-
-        <TouchableOpacity onPress={NextSong}>
-          <FontAwesome5 name="forward" size={32} color="#93A8B3"></FontAwesome5>
-        </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -494,7 +498,10 @@ export default PlayerFunct;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
     backgroundColor: "#EAEAEC",
+    paddingBottom: 20,
   },
   textLight: {
     color: "#B6B7BF",
@@ -507,17 +514,20 @@ const styles = StyleSheet.create({
   },
   coverContainer: {
     marginTop: 32,
-    width: 250,
-    height: 250,
+    width: 150,
+    height: 120,
+    // backgroundColor: "red",
     shadowColor: "#5D3F6A",
     shadowOffset: { height: 15 },
     shadowRadius: 8,
     shadowOpacity: 0.3,
+    justifyContent: "center",
+    alignItems: "center",
   },
   cover: {
-    width: 250,
-    height: 250,
-    borderRadius: 125,
+    width: 200,
+    height: 100,
+    // borderRadius: 125,
   },
   track: {
     height: 2,

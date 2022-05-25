@@ -29,8 +29,8 @@ const Login = ({ navigation }) => {
     useSelector(mapState);
   const dispatch = useDispatch();
 
-  const [email, setUsername] = useState("ramy@gmail.com"); //realadmin1@gmail.com
-  const [password, setPassword] = useState("hellodude"); // 123123
+  const [email, setUsername] = useState(""); //realadmin1@gmail.com
+  const [password, setPassword] = useState(""); // 123123
   // errors handeling
   const [emailErrors, setEmailErrors] = useState("");
   const [passwordErrors, setPasswordErrors] = useState("");
@@ -54,7 +54,6 @@ const Login = ({ navigation }) => {
       dispatch(ResetErrorsState());
     };
   }, [propertySignInSuccess]);
-
 
   const handleLogin = async (e) => {
     var checking_form = "true";
