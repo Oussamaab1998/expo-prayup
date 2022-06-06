@@ -79,8 +79,9 @@ export const signInUser =
   };
 
 export const signUpUser =
-  ({ firstName, email, password }) =>
+  ({ fullname, email, password }) =>
   async (dispatch) => {
+    console.log("fullname =>>>>>>>>", fullname);
     let rule = 0;
     let isLoggedBefore = false;
     let createdAt = new Date();
@@ -88,7 +89,7 @@ export const signUpUser =
     let deletedAt = new Date();
     let myObj = {
       rule: rule,
-      fullname: firstName,
+      fullname: fullname,
       email: email,
       password: password,
       createdAt: createdAt,
@@ -101,10 +102,10 @@ export const signUpUser =
       await createUserWithEmailAndPassword(auth, email, password)
         .then(async () => {
           const myId = auth.currentUser.uid;
-          console.log("Line 122 ACTION", myId);
+          console.log("Line 122 ACTION", fullname);
           const docRef = await setDoc(doc(db, "users", myId), {
             rule: rule,
-            fullname: firstName,
+            fullname: fullname,
             email: email,
             password: password,
             createdAt: createdAt,
@@ -121,7 +122,7 @@ export const signUpUser =
         .catch((err) => {
           if (err.code === "auth/email-already-in-use") {
             const error = "This email address is already in use!";
-            console.log(error);
+            console.log("myError", error);
             dispatch({
               type: userTypes.SET_ERRORS,
               payload: error,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, BackHandler } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
@@ -14,7 +14,7 @@ import { NavigationService } from "../config";
 import AdminScreen from "../screens/AdminScreen";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase/utils";
-
+import { useFocusEffect } from "@react-navigation/native";
 const mapState = ({ user }) => ({
   currentProperty: user.currentProperty,
   propertySignInSuccess: user.propertySignInSuccess,
@@ -23,6 +23,15 @@ const mapState = ({ user }) => ({
 });
 
 const BottomTabs = () => {
+  useFocusEffect(
+    React.useCallback(() => {
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        () => true
+      );
+      return () => backHandler.remove();
+    }, [])
+  );
   const {
     currentProperty,
     propertySignInSuccess,

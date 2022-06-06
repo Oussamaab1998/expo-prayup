@@ -22,6 +22,10 @@ const mapState = ({ user }) => ({
 });
 
 const AuthStack = () => {
+  React.useEffect(() => {
+    console.log("currentProperty =>", currentProperty);
+  }, []);
+
   const { currentProperty } = useSelector(mapState);
   return (
     <Stack.Navigator
@@ -30,15 +34,16 @@ const AuthStack = () => {
     >
       {!currentProperty && (
         <>
-          <Stack.Screen name="StartUpScreen" component={StartUpScreen} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="StartUpScreen" component={StartUpScreen} />
         </>
       )}
 
       {currentProperty && (
         <>
           {/* <Stack.Screen name="AuthStack" component={AuthStack} /> */}
+          <Stack.Screen name="SliderPage1" component={SliderPage1} />
           <Stack.Screen name="BottomTabs" component={BottomTabs} />
           <Stack.Screen name="Payment" component={Payment} />
           <Stack.Screen name="AskPrayer" component={AskPrayer} />

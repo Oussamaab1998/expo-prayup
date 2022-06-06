@@ -44,38 +44,44 @@ const SignUp = ({ navigation }) => {
 
   useEffect(() => {
     if (errors) console.log("Errors, ", errors);
-    if (propertySignUpSuccess) navigation.navigate("SliderPage1");
-    return () => {
-      setFullnameErrors("");
-      setEmailErrors("");
-      setPasswordErrors("");
-      dispatch(ResetErrorsState());
-    };
-  }, [propertySignUpSuccess, errors]);
+    if (propertySignUpSuccess) {
+      console.log("I'm Oussama ");
+      navigation.navigate("SliderPage1");
+    } else {
+      console.log("I'm Not ");
+    }
+    // return () => {
+    //   setFullnameErrors("");
+    //   setEmailErrors("");
+    //   setPasswordErrors("");
+    //   dispatch(ResetErrorsState());
+    // };
+  }, [propertySignUpSuccess]);
 
-  const handleRegister = async (e) => {
-    var checking_form = "true";
-    if (fullname.length === 0) {
-      setFullnameErrors("* First Name Field Required");
-      checking_form = "false";
-    } else {
-      setFullnameErrors("");
-    }
-    if (email.length === 0 || email.indexOf("@") === -1) {
-      setEmailErrors("* Email Field Required");
-      checking_form = "false";
-    } else {
-      setEmailErrors("");
-    }
-    if (password.length < 6) {
-      setPasswordErrors("* Password Field Required, 6 caracter min");
-      checking_form = "false";
-    } else {
-      setPasswordErrors("");
-    }
-    if (checking_form === "true") {
-      dispatch(signUpUser({ fullname, email, password }));
-    }
+  const handleRegister = () => {
+    // var checking_form = "true";
+    // // if (fullname.length === 0) {
+    // //   setFullnameErrors("* First Name Field Required");
+    // //   checking_form = "false";
+    // // } else {
+    // //   setFullnameErrors("");
+    // // }
+    // if (email.length === 0 || email.indexOf("@") === -1) {
+    //   setEmailErrors("* Email Field Required");
+    //   checking_form = "false";
+    // } else {
+    //   setEmailErrors("");
+    // }
+    // if (password.length < 6) {
+    //   setPasswordErrors("* Password Field Required, 6 caracter min");
+    //   checking_form = "false";
+    // } else {
+    //   setPasswordErrors("");
+    // // }
+    // if (checking_form === "true") {
+
+    // }
+    dispatch(signUpUser({ fullname, email, password }));
   };
 
   return (

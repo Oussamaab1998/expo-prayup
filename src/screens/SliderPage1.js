@@ -11,35 +11,43 @@ import { Video, AVPlaybackStatus } from "expo-av";
 import Intro from "../assets/intro.mp4";
 import { collection, getDocs, query, updateDoc, doc } from "firebase/firestore";
 import { auth, db } from "../firebase/utils";
-
+import { useSelector } from "react-redux";
 // const StatusBarHeight = Platform.select({
 //   ios: 20,
 //   android: StatusBar.currentHeight,
 //   default: 0,
 // });
 
-const setUserLoggedIn = async () => {
-  const userId = auth.currentUser.uid;
-  try {
-    const q = query(collection(db, "users"));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-      if (doc.id === userId) {
-        numberOfPrayers = doc.data().prayers;
-      }
-    });
-    await updateDoc(doc(db, "users", userId), {
-      isLoggedBefore: true,
-    });
-  } catch (err) {
-    console.log("Error from Add To Prayers Number action !!");
-    console.log(err);
-  }
-};
+// const setUserLoggedIn = async () => {
+//   const userId = auth.currentUser.uid;
+//   try {
+//     const q = query(collection(db, "users"));
+//     const querySnapshot = await getDocs(q);
+//     querySnapshot.forEach((doc) => {
+//       // doc.data() is never undefined for query doc snapshots
+//       console.log(doc.id, " => ", doc.data());
+//       if (doc.id === userId) {
+//         numberOfPrayers = doc.data().prayers;
+//       }
+//     });
+//     await updateDoc(doc(db, "users", userId), {
+//       isLoggedBefore: true,
+//     });
+//   } catch (err) {
+//     console.log("Error from Add To Prayers Number action !!");
+//     console.log(err);
+//   }
+// };
+const mapState = ({ user }) => ({
+  currentProperty: user.currentProperty,
+});
 
 const SliderPage1 = ({ navigation }) => {
+  const { currentProperty } = useSelector(mapState);
+  useEffect(() => {
+    console.log("currentProperty =>", currentProperty);
+  }, []);
+
   useFocusEffect(
     React.useCallback(() => {
       const backHandler = BackHandler.addEventListener(
@@ -57,7 +65,7 @@ const SliderPage1 = ({ navigation }) => {
         style={styles.nextBtn}
         onPress={() => {
           console.log("Next Pressed");
-          setUserLoggedIn();
+          // setUserLoggedIn();
           navigation.navigate("BottomTabs");
         }}
       >
